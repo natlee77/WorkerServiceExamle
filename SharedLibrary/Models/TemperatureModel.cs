@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharedLibrary
+namespace SharedLibrary.Models
 {
     public class TemperatureModel //  måste public för access från andra project
     {

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SharedLibrary;
 
 namespace WorkerService
 {
@@ -19,11 +18,13 @@ namespace WorkerService
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        // förvänta inte värde  svar tillbacka
         {
-            var temp = new TemperatureModel();
+
 
             while (!stoppingToken.IsCancellationRequested)
             {
+                //utföra jobb
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
