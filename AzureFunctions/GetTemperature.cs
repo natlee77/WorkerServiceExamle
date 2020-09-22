@@ -15,20 +15,25 @@ namespace AzureFunctions
 
         [FunctionName("GetTemperature")]   //property funk name atribbut помечает точку входа 
         
-        public static async Task<IActionResult> Run(   //i <> skrivs vilken data typ förväntas tillbaka
+        public static async Task<IActionResult> Run(      //i <> skrivs vilken data typ förväntas tillbaka
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
 
 
-
+            // http://localhost:7071/api/GetTemperature?name=Hans
 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
 
+            //{"name": "Hans", "surname": "ML", "theage":36}
+
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
+
+            var data = JsonConvert.DeserializeObject<dynamic>(requestBody);
+
+            //?=nullable
             name = name ?? data?.name;
 
             string responseMessage = string.IsNullOrEmpty(name)
